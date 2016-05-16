@@ -44,7 +44,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     // MARK: Notifications
     func subscribeToKeyboardNotifications() {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func unsubscribeFromKeyboardNotifications() {
@@ -99,21 +99,41 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         bottomTextField.defaultTextAttributes = memeAttr
         topTextField.textAlignment = .Center
         bottomTextField.textAlignment = .Center
+        
+        // register tap recognizer for detecting view taps (dismisses keyboard)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard() {
+        if topTextField.text == "" {
+            topTextField.text = "TOP"
+        }
+        
+        if bottomTextField.text == "" {
+            bottomTextField.text = "BOTTOM"
+        }
+        
+        view.endEditing(true)
     }
     
     // MARK: Utility methods
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue // of CGRect
+        let keyboardSize = userInfo![UIKeyboardFrameBeginUserInfoKey] as! NSValue // of CGRect
         return keyboardSize.CGRectValue().height
     }
     
     func keyboardWillShow(notification: NSNotification) {
-        self.view.frame.origin.y -= getKeyboardHeight(notification)
+        if bottomTextField.editing {
+            self.view.frame.origin.y -= getKeyboardHeight(notification)
+        }
     }
     
     func keyboardWillHide(notification: NSNotification) {
-        self.view.frame.origin.y += getKeyboardHeight(notification)
+        if view.frame.origin.y != 0 {
+            self.view.frame.origin.y += getKeyboardHeight(notification)
+        }
     }
 }
 
