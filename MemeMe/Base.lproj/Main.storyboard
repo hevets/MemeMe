@@ -1,25 +1,112 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ji-46-6Ev">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cUg-Mb-9ef" userLabel="Top Textfield">
+                                        <rect key="frame" x="63" y="50" width="250" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="250" id="mhP-5u-w1K"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="mhP-5u-w1K"/>
+                                            </mask>
+                                        </variation>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BgG-3A-5tP" userLabel="Bottom Textfield">
+                                        <rect key="frame" x="63" y="543" width="250" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="250" id="9A1-AD-fFn"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mnc-JR-JUJ">
+                                        <rect key="frame" x="8" y="8" width="359" height="607"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottomMargin" secondItem="Mnc-JR-JUJ" secondAttribute="bottom" id="6rM-yW-cTU"/>
+                                    <constraint firstAttribute="trailing" secondItem="BgG-3A-5tP" secondAttribute="trailing" constant="62.5" id="BHE-Ah-1yE"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="Mnc-JR-JUJ" secondAttribute="trailing" id="EBz-QJ-5Bd"/>
+                                    <constraint firstItem="BgG-3A-5tP" firstAttribute="centerX" secondItem="6Ji-46-6Ev" secondAttribute="centerX" id="EbQ-ga-wOc"/>
+                                    <constraint firstItem="Mnc-JR-JUJ" firstAttribute="top" secondItem="6Ji-46-6Ev" secondAttribute="topMargin" id="TK5-RK-nBe"/>
+                                    <constraint firstItem="cUg-Mb-9ef" firstAttribute="centerX" secondItem="6Ji-46-6Ev" secondAttribute="centerX" id="TYG-9Q-f9I"/>
+                                    <constraint firstAttribute="trailing" secondItem="cUg-Mb-9ef" secondAttribute="trailing" constant="62.5" id="VLn-o3-Kn1"/>
+                                    <constraint firstAttribute="bottom" secondItem="BgG-3A-5tP" secondAttribute="bottom" constant="50" id="Z3i-0c-FPg"/>
+                                    <constraint firstItem="cUg-Mb-9ef" firstAttribute="top" secondItem="6Ji-46-6Ev" secondAttribute="top" constant="50" id="fuW-Ue-MvT"/>
+                                    <constraint firstItem="Mnc-JR-JUJ" firstAttribute="leading" secondItem="6Ji-46-6Ev" secondAttribute="leadingMargin" id="xlU-YE-eve"/>
+                                    <constraint firstItem="BgG-3A-5tP" firstAttribute="leading" secondItem="6Ji-46-6Ev" secondAttribute="leading" constant="62.5" id="yE2-jn-YPz"/>
+                                    <constraint firstItem="cUg-Mb-9ef" firstAttribute="leading" secondItem="6Ji-46-6Ev" secondAttribute="leading" constant="62.5" id="zcS-dr-MxQ"/>
+                                </constraints>
+                            </view>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PjK-Bi-1t4">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="fbn-PL-A4f"/>
+                                    <barButtonItem title="Album" id="Q8J-eA-jeM"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Txf-3j-xVe"/>
+                                    <barButtonItem systemItem="camera" id="0uV-rv-hBO"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="FrU-7J-N57"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="PjK-Bi-1t4" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="1lP-Ja-eT9"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="6Ji-46-6Ev" secondAttribute="bottom" id="CK9-a3-PaX"/>
+                            <constraint firstItem="6Ji-46-6Ev" firstAttribute="bottom" secondItem="PjK-Bi-1t4" secondAttribute="bottom" id="DVJ-0k-xWN"/>
+                            <constraint firstItem="PjK-Bi-1t4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="HQX-i8-VWt"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="PjK-Bi-1t4" secondAttribute="bottom" id="JTa-DI-jOV"/>
+                            <constraint firstAttribute="trailing" secondItem="PjK-Bi-1t4" secondAttribute="trailing" id="KzU-t6-jys"/>
+                            <constraint firstItem="PjK-Bi-1t4" firstAttribute="top" secondItem="6Ji-46-6Ev" secondAttribute="bottom" id="Psv-AI-bMv"/>
+                            <constraint firstItem="6Ji-46-6Ev" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="S5j-f5-g9t"/>
+                            <constraint firstItem="6Ji-46-6Ev" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="f7O-gK-HCg"/>
+                            <constraint firstAttribute="trailing" secondItem="6Ji-46-6Ev" secondAttribute="trailing" id="gZR-Zd-mV9"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="CK9-a3-PaX"/>
+                                <exclude reference="DVJ-0k-xWN"/>
+                                <exclude reference="1lP-Ja-eT9"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="albumButton" destination="Q8J-eA-jeM" id="2zU-v5-ZqK"/>
+                        <outlet property="bottomTextField" destination="BgG-3A-5tP" id="rea-wt-3c9"/>
+                        <outlet property="captureButton" destination="0uV-rv-hBO" id="Qbr-bN-Nwo"/>
+                        <outlet property="imageView" destination="Mnc-JR-JUJ" id="8ru-KO-cla"/>
+                        <outlet property="toolBar" destination="PjK-Bi-1t4" id="1wA-6J-Yn9"/>
+                        <outlet property="topTextField" destination="cUg-Mb-9ef" id="OVc-QS-6OF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="304.5" y="387.5"/>
         </scene>
     </scenes>
 </document>
