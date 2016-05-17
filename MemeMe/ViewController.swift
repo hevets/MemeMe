@@ -74,9 +74,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image: imageView.image!, memedImage: generateMemedImage())
         
         let shareActivity = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
-        presentViewController(shareActivity, animated: true, completion: {
-            self.setupUI()
-        })
+        presentViewController(shareActivity, animated: true, completion: nil)
     }
     
     @IBAction func cancelTapped(sender: AnyObject) {
