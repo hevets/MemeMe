@@ -8,9 +8,12 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate {
+class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
-    @IBOutlet weak var toolBar: UIToolbar!
+    @IBOutlet weak var bottomToolBar: UIToolbar!
+    @IBOutlet weak var topToolBar: UIToolbar!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var cancelButton: UIBarButtonItem!
     @IBOutlet weak var albumButton: UIBarButtonItem!
     @IBOutlet weak var captureButton: UIBarButtonItem!
     @IBOutlet weak var topTextField: UITextField!
@@ -22,6 +25,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         topTextField.delegate = self
         bottomTextField.delegate = self
+        
+        setupUI()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -31,7 +36,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         captureButton.enabled = UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.Camera)
         
         // setup inital ui
-        resetUI()
         subscribeToKeyboardNotifications()
     }
     
@@ -51,11 +55,40 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
-
+    
+    // MARK: IBAction Events
+    @IBAction func albumTapped(sender: AnyObject) {
+        let album = UIImagePickerController()
+        album.delegate = self
+        presentViewController(album, animated: true, completion: nil)
+    }
+    
+    @IBAction func captureTapped(sender: AnyObject) {
+        let camera = UIImagePickerController()
+        camera.delegate = self
+        camera.sourceType = UIImagePickerControllerSourceType.Camera
+        presentViewController(camera, animated: true, completion: nil)
+    }
+    
+    @IBAction func shareTapped(sender: AnyObject) {
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image: imageView.image!, memedImage: generateMemedImage())
+        
+        let shareActivity = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
+        presentViewController(shareActivity, animated: true, completion: {
+            self.setupUI()
+        })
+    }
+    
+    @IBAction func cancelTapped(sender: AnyObject) {
+        setupUI()
+    }
+    
     // MARK: UITextFieldDelegate
     func textFieldDidBeginEditing(textField: UITextField) {
         // TODO: dont delete if text is TOP or BOTTOM
-        textField.text = ""
+        if textField.text != "TOP" || textField.text != "BOTTOM" {
+            textField.text = ""
+        }
     }
     
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
@@ -76,16 +109,19 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage {
             imageView.image = image
+            imagePicked()
         }
         
         dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: UI methods
-    func resetUI() {
+    func setupUI() {
         view.endEditing(true)
         topTextField.text = "TOP"
         bottomTextField.text = "BOTTOM"
+        shareButton.enabled = false
+        cancelButton.enabled = false
         imageView.image = nil
         
         let memeAttr = [
@@ -105,6 +141,11 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         view.addGestureRecognizer(tap)
     }
     
+    func imagePicked() {
+        shareButton.enabled = true
+        cancelButton.enabled = true
+    }
+    
     func dismissKeyboard() {
         if topTextField.text == "" {
             topTextField.text = "TOP"
@@ -115,6 +156,24 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         }
         
         view.endEditing(true)
+    }
+    
+    // generates a memed image
+    func generateMemedImage() -> UIImage {
+        // toolbars should be hidden to prevent it getting included in the image
+        self.bottomToolBar.hidden = true
+        self.topToolBar.hidden = true
+        
+        // create graphic by rendering image + text
+        UIGraphicsBeginImageContext(self.view.frame.size)
+        view.drawViewHierarchyInRect(self.view.frame, afterScreenUpdates: true)
+        let memedImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        self.bottomToolBar.hidden = false
+        self.topToolBar.hidden = false
+        
+        return memedImage
     }
     
     // MARK: Utility methods

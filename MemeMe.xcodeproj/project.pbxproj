@@ -12,6 +12,7 @@
 		C40D4F7D1CEA03E0008DE455 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40D4F7B1CEA03E0008DE455 /* Main.storyboard */; };
 		C40D4F7F1CEA03E1008DE455 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C40D4F7E1CEA03E1008DE455 /* Assets.xcassets */; };
 		C40D4F821CEA03E1008DE455 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C40D4F801CEA03E1008DE455 /* LaunchScreen.storyboard */; };
+		C4287E8C1CEB575800EBA4F5 /* Meme.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4287E8B1CEB575800EBA4F5 /* Meme.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		C40D4F7E1CEA03E1008DE455 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C40D4F811CEA03E1008DE455 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C40D4F831CEA03E1008DE455 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4287E8B1CEB575800EBA4F5 /* Meme.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Meme.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				C40D4F771CEA03E0008DE455 /* AppDelegate.swift */,
 				C40D4F791CEA03E0008DE455 /* ViewController.swift */,
+				C4287E8B1CEB575800EBA4F5 /* Meme.swift */,
 				C40D4F7B1CEA03E0008DE455 /* Main.storyboard */,
 				C40D4F7E1CEA03E1008DE455 /* Assets.xcassets */,
 				C40D4F801CEA03E1008DE455 /* LaunchScreen.storyboard */,
@@ -96,6 +99,7 @@
 				TargetAttributes = {
 					C40D4F731CEA03E0008DE455 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = SKFNBC7ABQ;
 					};
 				};
 			};
@@ -135,6 +139,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C4287E8C1CEB575800EBA4F5 /* Meme.swift in Sources */,
 				C40D4F7A1CEA03E0008DE455 /* ViewController.swift in Sources */,
 				C40D4F781CEA03E0008DE455 /* AppDelegate.swift in Sources */,
 			);
@@ -251,6 +256,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MemeMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hevets.MemeMe;
@@ -262,6 +269,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = MemeMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hevets.MemeMe;
@@ -288,6 +297,7 @@
 				C40D4F881CEA03E1008DE455 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
