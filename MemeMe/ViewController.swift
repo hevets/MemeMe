@@ -25,6 +25,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         topTextField.delegate = self
         bottomTextField.delegate = self
+        setupUI()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -35,7 +36,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         // setup inital ui
         subscribeToKeyboardNotifications()
-        setupUI()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -74,14 +74,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     @IBAction func shareTapped(sender: AnyObject) {
         let shareActivity = UIActivityViewController(activityItems: [generateMemedImage()], applicationActivities: nil)
-        
-//        shareActivity.completionWithItemsHandler = {
-//            (activityType, completed, _, _) in
-//            if completed {
-//                let meme = Meme(topText: self.topTextField.text!, bottomText: self.bottomTextField.text!, image: self.imageView.image!, memedImage: self.generateMemedImage())
-//                
-//            }
-//        }
         presentViewController(shareActivity, animated: true, completion: nil)
     }
     
@@ -119,6 +111,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         shareButton.enabled = false
         cancelButton.enabled = false
         imageView.image = nil
+        topTextField.text = ""
+        bottomTextField.text = ""
     }
     
     // MARK: UI methods
