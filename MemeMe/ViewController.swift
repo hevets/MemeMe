@@ -25,8 +25,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         topTextField.delegate = self
         bottomTextField.delegate = self
-        
-        setupUI()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -37,6 +35,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         // setup inital ui
         subscribeToKeyboardNotifications()
+        setupUI()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -56,39 +55,41 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UIKeyboardWillHideNotification, object: nil)
     }
     
+    // MARK: Image Picker
+    func pickImage(sourceType: UIImagePickerControllerSourceType) {
+        let picker = UIImagePickerController()
+        picker.delegate = self
+        picker.sourceType = sourceType
+        presentViewController(picker, animated: true, completion: nil)
+    }
+    
     // MARK: IBAction Events
     @IBAction func albumTapped(sender: AnyObject) {
-        let album = UIImagePickerController()
-        album.delegate = self
-        presentViewController(album, animated: true, completion: nil)
+        pickImage(UIImagePickerControllerSourceType.PhotoLibrary)
     }
     
     @IBAction func captureTapped(sender: AnyObject) {
-        let camera = UIImagePickerController()
-        camera.delegate = self
-        camera.sourceType = UIImagePickerControllerSourceType.Camera
-        presentViewController(camera, animated: true, completion: nil)
+        pickImage(UIImagePickerControllerSourceType.Camera)
     }
     
     @IBAction func shareTapped(sender: AnyObject) {
-        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image: imageView.image!, memedImage: generateMemedImage())
+        let shareActivity = UIActivityViewController(activityItems: [generateMemedImage()], applicationActivities: nil)
         
-        let shareActivity = UIActivityViewController(activityItems: [meme.memedImage], applicationActivities: nil)
+//        shareActivity.completionWithItemsHandler = {
+//            (activityType, completed, _, _) in
+//            if completed {
+//                let meme = Meme(topText: self.topTextField.text!, bottomText: self.bottomTextField.text!, image: self.imageView.image!, memedImage: self.generateMemedImage())
+//                
+//            }
+//        }
         presentViewController(shareActivity, animated: true, completion: nil)
     }
     
     @IBAction func cancelTapped(sender: AnyObject) {
-        setupUI()
+        resetUI()
     }
     
     // MARK: UITextFieldDelegate
-    func textFieldDidBeginEditing(textField: UITextField) {
-        // TODO: dont delete if text is TOP or BOTTOM
-        if textField.text != "TOP" || textField.text != "BOTTOM" {
-            textField.text = ""
-        }
-    }
-    
     func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
         return true
     }
@@ -113,14 +114,16 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    // MARK: UI methods
-    func setupUI() {
+    func resetUI() {
         view.endEditing(true)
-        topTextField.text = "TOP"
-        bottomTextField.text = "BOTTOM"
         shareButton.enabled = false
         cancelButton.enabled = false
         imageView.image = nil
+    }
+    
+    // MARK: UI methods
+    func setupUI() {
+        resetUI()
         
         let memeAttr = [
             NSStrokeColorAttributeName: UIColor.blackColor(),
@@ -130,8 +133,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         ]
         
         topTextField.defaultTextAttributes = memeAttr
-        bottomTextField.defaultTextAttributes = memeAttr
         topTextField.textAlignment = .Center
+        bottomTextField.defaultTextAttributes = memeAttr
         bottomTextField.textAlignment = .Center
         
         // register tap recognizer for detecting view taps (dismisses keyboard)
@@ -145,14 +148,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
     
     func dismissKeyboard() {
-        if topTextField.text == "" {
-            topTextField.text = "TOP"
-        }
-        
-        if bottomTextField.text == "" {
-            bottomTextField.text = "BOTTOM"
-        }
-        
         view.endEditing(true)
     }
     
@@ -183,14 +178,15 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     func keyboardWillShow(notification: NSNotification) {
         if bottomTextField.editing {
-            self.view.frame.origin.y -= getKeyboardHeight(notification)
+            view.frame.origin.y = -getKeyboardHeight(notification)
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
         if view.frame.origin.y != 0 {
-            self.view.frame.origin.y += getKeyboardHeight(notification)
+            view.frame.origin.y = 0
         }
     }
+    
 }
 
