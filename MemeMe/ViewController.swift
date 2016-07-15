@@ -72,13 +72,47 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         pickImage(UIImagePickerControllerSourceType.Camera)
     }
     
-    @IBAction func shareTapped(sender: AnyObject) {
-        let shareActivity = UIActivityViewController(activityItems: [generateMemedImage()], applicationActivities: nil)
-        presentViewController(shareActivity, animated: true, completion: nil)
+    @IBAction func displayExportOptions() {
+        let menu = UIAlertController(title: nil, message: "Choose Option", preferredStyle: .ActionSheet)
+
+        let saveAction = UIAlertAction(title: "Save", style: .Default) { (alert: UIAlertAction!) in
+            let memedImage = self.generateMemedImage()
+            self.save(memedImage)
+        }
+        let shareAction = UIAlertAction(title: "Share", style: .Default) { (alert: UIAlertAction!) in
+            self.share()
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel) { (alert:UIAlertAction!) in
+            print("cancelled")
+        }
+
+        menu.addAction(saveAction)
+        menu.addAction(shareAction)
+        menu.addAction(cancelAction)
+
+        self.presentViewController(menu, animated: true, completion: nil)
     }
-    
+
     @IBAction func cancelTapped(sender: AnyObject) {
         resetUI()
+    }
+
+    func share() {
+        let memedImage = generateMemedImage()
+        let shareActivity = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        shareActivity.completionWithItemsHandler = { activityType, completed, items, error in
+            self.save(memedImage)
+        }
+        presentViewController(shareActivity, animated: true, completion: nil)
+    }
+
+    func save(memedImage:UIImage) {
+        //Create the meme
+        let meme = Meme(topText: topTextField.text!, bottomText: bottomTextField.text!, image: imageView.image!, memedImage: memedImage)
+        // Add it to the memes array in the Application Delegate
+        let object = UIApplication.sharedApplication().delegate
+        let appDelegate = object as! AppDelegate
+        appDelegate.memes.append(meme)
     }
     
     // MARK: UITextFieldDelegate
@@ -162,7 +196,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         
         return memedImage
     }
-    
+
     // MARK: Utility methods
     func getKeyboardHeight(notification: NSNotification) -> CGFloat {
         let userInfo = notification.userInfo
