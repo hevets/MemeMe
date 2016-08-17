@@ -84,11 +84,12 @@ class CollectionViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let storyBoard = UIStoryboard(name: "Main", bundle:nil)
         let memeViewController = storyBoard.instantiateViewControllerWithIdentifier("memeViewController") as! ViewController
-        memeViewController.loadView()
         
         let meme = dataSource()[indexPath.row]
+        
+        presentViewController(memeViewController, animated: true, completion: nil)
 
         memeViewController.imageView.image = meme.image
         memeViewController.topTextField.text = meme.bottomText
@@ -98,7 +99,7 @@ class CollectionViewController: UICollectionViewController {
         // this needs to be cleaned up a ton
         // this is pretty nasty in here it loads the view but does a terrible job of doing it, need to look at the demo app again
         
-        presentViewController(memeViewController, animated: true, completion: nil)
+//        navigationController?.pushViewController(memeViewController, animated: true)
     }
 
     // MARK: UICollectionViewDelegate
