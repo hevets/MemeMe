@@ -94,7 +94,9 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     }
 
     @IBAction func cancelTapped(sender: AnyObject) {
-        resetUI()
+        dismissViewControllerAnimated(true) {
+            self.resetUI()
+        }
     }
 
     func share() {
@@ -143,7 +145,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     func resetUI() {
         view.endEditing(true)
         shareButton.enabled = false
-        cancelButton.enabled = false
+        cancelButton.enabled = true
         imageView.image = nil
         topTextField.text = ""
         bottomTextField.text = ""
