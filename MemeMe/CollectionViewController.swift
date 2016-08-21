@@ -4,6 +4,7 @@ private let reuseIdentifier = "memeCVCell"
 
 class CollectionViewController: UICollectionViewController {
 
+    var selectedMeme:Meme?
     @IBOutlet weak var flowLayout:UICollectionViewFlowLayout!
 
     override func viewDidLoad() {
@@ -77,17 +78,18 @@ class CollectionViewController: UICollectionViewController {
         return cell
     }
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let storyBoard = UIStoryboard(name: "Main", bundle:nil)
-        let memeViewController = storyBoard.instantiateViewControllerWithIdentifier("memeViewController") as! ViewController
-        
-        let meme = dataSource()[indexPath.row]
-        
-        presentViewController(memeViewController, animated: true) {
-            memeViewController.imageView.image = meme.image
-            memeViewController.topTextField.text = meme.bottomText
-            memeViewController.bottomTextField.text = meme.bottomText
-            memeViewController.imagePicked()
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showDetail" {
+            if let vc = segue.destinationViewController as? DetailViewController {
+                if let meme = self.selectedMeme {
+                    vc.selectedMeme = meme
+                }
+            }
         }
+    }
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.selectedMeme = dataSource()[indexPath.row]
+        self.performSegueWithIdentifier("showDetail", sender: nil)
     }
 }

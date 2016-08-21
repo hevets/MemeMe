@@ -17,6 +17,7 @@
 		C4E21D171D63F67600A75367 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E21D161D63F67600A75367 /* CollectionViewController.swift */; };
 		C4E21D1B1D64160600A75367 /* MemeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E21D1A1D64160600A75367 /* MemeTableViewCell.swift */; };
 		C4E21D1D1D64161900A75367 /* MemeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E21D1C1D64161900A75367 /* MemeCollectionViewCell.swift */; };
+		C4E21D1F1D693D4F00A75367 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E21D1E1D693D4F00A75367 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		C4E21D161D63F67600A75367 /* CollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		C4E21D1A1D64160600A75367 /* MemeTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeTableViewCell.swift; sourceTree = "<group>"; };
 		C4E21D1C1D64161900A75367 /* MemeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemeCollectionViewCell.swift; sourceTree = "<group>"; };
+		C4E21D1E1D693D4F00A75367 /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				C40D4F801CEA03E1008DE455 /* LaunchScreen.storyboard */,
 				C40D4F831CEA03E1008DE455 /* Info.plist */,
 				C4E21D141D63F66A00A75367 /* TableViewController.swift */,
+				C4E21D1E1D693D4F00A75367 /* DetailViewController.swift */,
 			);
 			path = MemeMe;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 				C4E21D1D1D64161900A75367 /* MemeCollectionViewCell.swift in Sources */,
 				C4E21D151D63F66A00A75367 /* TableViewController.swift in Sources */,
 				C4E21D171D63F67600A75367 /* CollectionViewController.swift in Sources */,
+				C4E21D1F1D693D4F00A75367 /* DetailViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
