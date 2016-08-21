@@ -16,11 +16,6 @@ class TableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        for _ in 1...20 {
-            let meme = Meme(topText: "Top Text", bottomText: "Bottom Text", image: UIImage(named: "LaunchImage")!, memedImage: UIImage(named: "LaunchImage")!)
-            (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
-        }
-        
         self.setupBarButtons()
     }
     

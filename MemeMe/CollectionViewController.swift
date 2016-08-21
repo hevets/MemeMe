@@ -24,13 +24,6 @@ class CollectionViewController: UICollectionViewController {
         flowLayout.minimumInteritemSpacing = space
         flowLayout.minimumLineSpacing = space
         flowLayout.itemSize = CGSizeMake(dimension, dimension)
-        
-        for _ in 1...20 {
-            let meme = Meme(topText: "Top Text", bottomText: "Bottom Text", image: UIImage(named: "LaunchImage")!, memedImage: UIImage(named: "LaunchImage")!)
-            (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
-        }
-        
-        
     }
     
     override func viewWillAppear(animated: Bool) {
