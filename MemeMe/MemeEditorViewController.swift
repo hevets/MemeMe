@@ -101,8 +101,10 @@ class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePi
         let memedImage = generateMemedImage()
         let shareActivity = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         shareActivity.completionWithItemsHandler = { activityType, completed, items, error in
-            self.save(memedImage)
-            self.dismiss(animated: true, completion: nil)
+            if completed {
+                self.save(memedImage)
+                self.dismiss(animated: true, completion: nil)
+            }
         }
         present(shareActivity, animated: true, completion: nil)
     }

@@ -25,11 +25,6 @@ class TableViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     func setupBarButtons() {
         self.navigationItem.rightBarButtonItem = self.createButton()
     }

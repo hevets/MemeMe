@@ -31,10 +31,6 @@ class CollectionViewController: UICollectionViewController {
         
         collectionView?.reloadData()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     
     func setupBarButtons() {
         self.navigationItem.rightBarButtonItem = self.createButton()

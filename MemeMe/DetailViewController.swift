@@ -7,19 +7,21 @@ class DetailViewController: UIViewController {
     
     @IBOutlet weak var memeImageView: UIImageView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupView()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
+    
+    func setupView() {
         if let meme = self.selectedMeme {
             memeImageView.image = meme.memedImage
         }
+        tabBarController?.tabBar.isHidden = true
     }
-
+    
 }
