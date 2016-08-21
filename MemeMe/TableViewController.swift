@@ -40,7 +40,7 @@ class TableViewController: UITableViewController {
     
     func createMeme() {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("memeViewController") as! ViewController
+        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("memeViewController") as! MemeEditorViewController
         self.presentViewController(nextViewController, animated: true, completion: nil)
     }
     

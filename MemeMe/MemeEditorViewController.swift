@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MemeEditorViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var bottomToolBar: UIToolbar!
     @IBOutlet weak var topToolBar: UIToolbar!
@@ -22,9 +22,6 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        topTextField.delegate = self
-        bottomTextField.delegate = self
         setupUI()
     }
 
@@ -46,8 +43,8 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     
     // MARK: Notifications
     func subscribeToKeyboardNotifications() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MemeEditorViewController.keyboardWillShow(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MemeEditorViewController.keyboardWillHide(_:)), name: UIKeyboardWillHideNotification, object: nil)
     }
     
     func unsubscribeFromKeyboardNotifications() {
@@ -78,6 +75,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         let saveAction = UIAlertAction(title: "Save", style: .Default) { (alert: UIAlertAction!) in
             let memedImage = self.generateMemedImage()
             self.save(memedImage)
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
         let shareAction = UIAlertAction(title: "Share", style: .Default) { (alert: UIAlertAction!) in
             self.share()
@@ -104,6 +102,7 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
         let shareActivity = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         shareActivity.completionWithItemsHandler = { activityType, completed, items, error in
             self.save(memedImage)
+            self.dismissViewControllerAnimated(true, completion: nil)
         }
         presentViewController(shareActivity, animated: true, completion: nil)
     }
@@ -155,21 +154,27 @@ class ViewController: UIViewController, UITextFieldDelegate, UIImagePickerContro
     func setupUI() {
         resetUI()
         
-        let memeAttr = [
-            NSStrokeColorAttributeName: UIColor.blackColor(),
-            NSForegroundColorAttributeName: UIColor.whiteColor(),
-            NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-            NSStrokeWidthAttributeName: -3.0
-        ]
-        
-        topTextField.defaultTextAttributes = memeAttr
-        topTextField.textAlignment = .Center
-        bottomTextField.defaultTextAttributes = memeAttr
-        bottomTextField.textAlignment = .Center
+        // setup textFields
+        self.setupTextField(topTextField, bottomTextField)
         
         // register tap recognizer for detecting view taps (dismisses keyboard)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.dismissKeyboard))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(MemeEditorViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
+    }
+    
+    func setupTextField(textFields:UITextField...) {
+        for textField in textFields {
+            let memeAttr = [
+                NSStrokeColorAttributeName: UIColor.blackColor(),
+                NSForegroundColorAttributeName: UIColor.whiteColor(),
+                NSFontAttributeName: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+                NSStrokeWidthAttributeName: -3.0
+            ]
+            
+            textField.delegate = self
+            textField.defaultTextAttributes = memeAttr
+            textField.textAlignment = .Center
+        }
     }
     
     func imagePicked() {

@@ -47,8 +47,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="140" height="158"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dS8-EB-u8R">
-                                            <rect key="frame" x="8" y="8" width="124" height="140"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dS8-EB-u8R">
+                                            <rect key="frame" x="8" y="8" width="124" height="142"/>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -56,6 +56,7 @@
                                 <constraints>
                                     <constraint firstItem="dS8-EB-u8R" firstAttribute="centerX" secondItem="dDE-f1-ner" secondAttribute="centerX" id="3UF-r5-Ds5"/>
                                     <constraint firstItem="dS8-EB-u8R" firstAttribute="centerY" secondItem="dDE-f1-ner" secondAttribute="centerY" id="7pV-xn-PYf"/>
+                                    <constraint firstItem="dS8-EB-u8R" firstAttribute="centerY" secondItem="dDE-f1-ner" secondAttribute="centerY" id="9PI-jv-EKv"/>
                                     <constraint firstItem="dS8-EB-u8R" firstAttribute="leading" secondItem="dDE-f1-ner" secondAttribute="leadingMargin" constant="6" id="EuG-E1-vcj"/>
                                     <constraint firstItem="dS8-EB-u8R" firstAttribute="top" secondItem="dDE-f1-ner" secondAttribute="topMargin" constant="6" id="TCa-WW-AZx"/>
                                     <constraint firstItem="dS8-EB-u8R" firstAttribute="width" secondItem="dDE-f1-ner" secondAttribute="width" multiplier="0.8" id="V5N-2q-SSc"/>
@@ -63,7 +64,7 @@
                                     <constraint firstAttribute="topMargin" secondItem="dS8-EB-u8R" secondAttribute="top" id="dTB-PI-MMA"/>
                                     <constraint firstAttribute="trailingMargin" secondItem="dS8-EB-u8R" secondAttribute="trailing" constant="6" id="dwP-6L-2oz"/>
                                     <constraint firstItem="dS8-EB-u8R" firstAttribute="height" secondItem="dDE-f1-ner" secondAttribute="height" multiplier="0.8" id="fka-NM-Jig"/>
-                                    <constraint firstItem="dS8-EB-u8R" firstAttribute="height" secondItem="dDE-f1-ner" secondAttribute="height" id="p1E-yh-w7g"/>
+                                    <constraint firstItem="dS8-EB-u8R" firstAttribute="height" secondItem="dDE-f1-ner" secondAttribute="height" multiplier="0.9" id="p1E-yh-w7g"/>
                                     <constraint firstAttribute="leadingMargin" secondItem="dS8-EB-u8R" secondAttribute="leading" id="sit-Hr-r9y"/>
                                 </constraints>
                                 <variation key="default">
@@ -73,6 +74,7 @@
                                         <exclude reference="EuG-E1-vcj"/>
                                         <exclude reference="TCa-WW-AZx"/>
                                         <exclude reference="V5N-2q-SSc"/>
+                                        <exclude reference="dTB-PI-MMA"/>
                                         <exclude reference="dwP-6L-2oz"/>
                                         <exclude reference="fka-NM-Jig"/>
                                     </mask>
@@ -205,10 +207,10 @@
             </objects>
             <point key="canvasLocation" x="1217" y="-385"/>
         </scene>
-        <!--View Controller-->
+        <!--Meme Editor View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="memeViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="memeViewController" id="BYZ-38-t0r" customClass="MemeEditorViewController" customModule="MemeMe" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -239,26 +241,26 @@
                                     <imageView autoresizesSubviews="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dHi-v0-rmA">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="579"/>
                                     </imageView>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="TOP" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cUg-Mb-9ef" userLabel="Top Textfield">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="TOP" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cUg-Mb-9ef" userLabel="Top Textfield">
                                         <rect key="frame" x="63" y="30" width="250" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="250" id="mhP-5u-w1K"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="mhP-5u-w1K"/>
                                             </mask>
                                         </variation>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="BOTTOM" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BgG-3A-5tP" userLabel="Bottom Textfield">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="BOTTOM" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BgG-3A-5tP" userLabel="Bottom Textfield">
                                         <rect key="frame" x="63" y="532" width="250" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="250" id="9A1-AD-fFn"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" spellCheckingType="no"/>
                                         <variation key="default">
                                             <mask key="constraints">
                                                 <exclude reference="9A1-AD-fFn"/>
