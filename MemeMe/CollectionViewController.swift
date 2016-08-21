@@ -12,11 +12,24 @@ class CollectionViewController: UICollectionViewController {
         self.setupBarButtons()
         
         let space:CGFloat = 3.0
-        let dimension = (self.view.frame.size.width - ( 2 * space )) / 3.0
+        var dimension:CGFloat
+        
+        if UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation) {
+            dimension = (self.view.frame.size.width - (2*space)) / 3.0
+        } else {
+            dimension = (self.view.frame.size.height - (2*space)) / 3.0
+        }
         
         flowLayout.minimumInteritemSpacing = space
         flowLayout.minimumLineSpacing = space
         flowLayout.itemSize = CGSizeMake(dimension, dimension)
+        
+        for _ in 1...20 {
+            let meme = Meme(topText: "Top Text", bottomText: "Bottom Text", image: UIImage(named: "LaunchImage")!, memedImage: UIImage(named: "LaunchImage")!)
+            (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+        }
+        
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -59,7 +72,6 @@ class CollectionViewController: UICollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let meme = dataSource()[indexPath.row]
         let cell:MemeCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MemeCollectionViewCell
-        cell.setText(meme.topText, bottomText: meme.bottomText)
         cell.imageView.image = meme.memedImage
         
         return cell

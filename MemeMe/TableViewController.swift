@@ -14,17 +14,17 @@ class TableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        
+        for _ in 1...20 {
+            let meme = Meme(topText: "Top Text", bottomText: "Bottom Text", image: UIImage(named: "LaunchImage")!, memedImage: UIImage(named: "LaunchImage")!)
+            (UIApplication.sharedApplication().delegate as! AppDelegate).memes.append(meme)
+        }
+        
         self.setupBarButtons()
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -65,19 +65,10 @@ class TableViewController: UITableViewController {
         
         let cell:MemeTableViewCell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MemeTableViewCell
         
-        cell.imageView?.contentMode = .ScaleAspectFill
-        cell.imageView?.image = meme.memedImage
-        cell.textLabel!.text = meme.topText
-        
-        if (cell.detailTextLabel != nil) {
-            cell.detailTextLabel!.text = meme.bottomText
-        }
+        cell.memeImageView.image = meme.memedImage
+        cell.memeTextLabel.text = meme.getDisplayText()
         
         return cell
-    }
-    
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 44.0 * 2;
     }
     
     // TODO: implement this later
@@ -89,7 +80,7 @@ class TableViewController: UITableViewController {
         
         presentViewController(memeViewController, animated: true) {
             memeViewController.imageView.image = meme.image
-            memeViewController.topTextField.text = meme.bottomText
+            memeViewController.topTextField.text = meme.topText
             memeViewController.bottomTextField.text = meme.bottomText
             memeViewController.imagePicked()
         }

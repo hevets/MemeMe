@@ -14,4 +14,9 @@ struct Meme {
     let bottomText:String
     let image:UIImage
     let memedImage:UIImage
+
+    func getDisplayText() -> String {
+        return topText + "..." + bottomText
+    }
 }
+

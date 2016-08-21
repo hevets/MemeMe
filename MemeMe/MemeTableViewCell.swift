@@ -10,16 +10,30 @@ import UIKit
 
 class MemeTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var memeImageView: UIImageView!
+    @IBOutlet weak var memeTextLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
+        memeImageView.contentMode = .ScaleAspectFit
+        memeImageView.autoresizingMask = .None
     }
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        memeImageView.contentMode = .ScaleAspectFit
+        memeImageView.autoresizingMask = .None
+        
+        self.invalidateIntrinsicContentSize()
+        self.setNeedsUpdateConstraints()
     }
 
 }
