@@ -15,7 +15,7 @@ class DetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let meme = self.selectedMeme {
             memeImageView.image = meme.memedImage

@@ -19,7 +19,7 @@ class TableViewController: UITableViewController {
         self.setupBarButtons()
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         tableView.reloadData()
@@ -35,33 +35,33 @@ class TableViewController: UITableViewController {
     }
     
     func createButton() -> UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(TableViewController.createMeme))
+        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(TableViewController.createMeme))
     }
     
     func createMeme() {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("memeViewController") as! MemeEditorViewController
-        self.presentViewController(nextViewController, animated: true, completion: nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "memeViewController") as! MemeEditorViewController
+        self.present(nextViewController, animated: true, completion: nil)
     }
     
     // MARK: - Table view data source
     
     func dataSource() -> [Meme] {
-        return (UIApplication.sharedApplication().delegate as! AppDelegate).memes
+        return (UIApplication.shared.delegate as! AppDelegate).memes
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource().count
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let meme = self.dataSource()[indexPath.row] as Meme
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let meme = self.dataSource()[(indexPath as NSIndexPath).row] as Meme
         
-        let cell:MemeTableViewCell = tableView.dequeueReusableCellWithIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MemeTableViewCell
+        let cell:MemeTableViewCell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! MemeTableViewCell
         
         cell.memeImageView.image = meme.memedImage
         cell.memeTextLabel.text = meme.getDisplayText()
@@ -69,9 +69,9 @@ class TableViewController: UITableViewController {
         return cell
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
-            if let vc = segue.destinationViewController as? DetailViewController {
+            if let vc = segue.destination as? DetailViewController {
                 if let meme = self.selectedMeme {
                     vc.selectedMeme = meme
                 }
@@ -80,8 +80,8 @@ class TableViewController: UITableViewController {
     }
     
     // TODO: implement this later
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.selectedMeme = dataSource()[indexPath.row]
-        self.performSegueWithIdentifier("showDetail", sender: nil)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedMeme = dataSource()[(indexPath as NSIndexPath).row]
+        self.performSegue(withIdentifier: "showDetail", sender: nil)
     }
 }

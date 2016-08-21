@@ -15,7 +15,7 @@ class CollectionViewController: UICollectionViewController {
         let space:CGFloat = 3.0
         var dimension:CGFloat
         
-        if UIDeviceOrientationIsPortrait(UIDevice.currentDevice().orientation) {
+        if UIDeviceOrientationIsPortrait(UIDevice.current.orientation) {
             dimension = (self.view.frame.size.width - (2*space)) / 3.0
         } else {
             dimension = (self.view.frame.size.height - (2*space)) / 3.0
@@ -23,10 +23,10 @@ class CollectionViewController: UICollectionViewController {
         
         flowLayout.minimumInteritemSpacing = space
         flowLayout.minimumLineSpacing = space
-        flowLayout.itemSize = CGSizeMake(dimension, dimension)
+        flowLayout.itemSize = CGSize(width: dimension, height: dimension)
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         collectionView?.reloadData()
@@ -41,39 +41,39 @@ class CollectionViewController: UICollectionViewController {
     }
     
     func createButton() -> UIBarButtonItem {
-        return UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(TableViewController.createMeme))
+        return UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(TableViewController.createMeme))
     }
     
     func createMeme() {
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("memeViewController") as! MemeEditorViewController
-        self.presentViewController(nextViewController, animated: true, completion: nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "memeViewController") as! MemeEditorViewController
+        self.present(nextViewController, animated: true, completion: nil)
     }
     
     func dataSource() -> [Meme] {
-        return (UIApplication.sharedApplication().delegate as! AppDelegate).memes
+        return (UIApplication.shared.delegate as! AppDelegate).memes
     }
     
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource().count
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let meme = dataSource()[indexPath.row]
-        let cell:MemeCollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! MemeCollectionViewCell
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let meme = dataSource()[(indexPath as NSIndexPath).row]
+        let cell:MemeCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MemeCollectionViewCell
         cell.imageView.image = meme.memedImage
         
         return cell
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showDetail" {
-            if let vc = segue.destinationViewController as? DetailViewController {
+            if let vc = segue.destination as? DetailViewController {
                 if let meme = self.selectedMeme {
                     vc.selectedMeme = meme
                 }
@@ -81,8 +81,8 @@ class CollectionViewController: UICollectionViewController {
         }
     }
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        self.selectedMeme = dataSource()[indexPath.row]
-        self.performSegueWithIdentifier("showDetail", sender: nil)
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.selectedMeme = dataSource()[(indexPath as NSIndexPath).row]
+        self.performSegue(withIdentifier: "showDetail", sender: nil)
     }
 }
